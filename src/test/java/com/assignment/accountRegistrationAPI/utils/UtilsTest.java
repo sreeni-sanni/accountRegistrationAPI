@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 import com.assignment.accountRegistrationAPI.utils.Utils;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,7 +43,7 @@ public class UtilsTest {
 	@Test
 	@DisplayName("Iban number generation Exception")
 	public void generatorIbanExceptionTest() throws Exception {
-		APIException exception = assertThrows(APIException.class,
+		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class,
 				() -> Utils.generatorIbanNumber("India"));
 		assertEquals("Requested country is not allowed", exception.getMessage());
 	}

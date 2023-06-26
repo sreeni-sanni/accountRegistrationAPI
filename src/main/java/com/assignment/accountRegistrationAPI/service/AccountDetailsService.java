@@ -3,9 +3,10 @@ package com.assignment.accountRegistrationAPI.service;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.openapitools.client.model.AccountInfo;
 import org.springframework.stereotype.Service;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 import com.assignment.accountRegistrationAPI.model.AccountDetails;
 import com.assignment.accountRegistrationAPI.repository.AccountDetailsRepository;
 
@@ -22,14 +23,29 @@ public class AccountDetailsService {
 		this.accountDetailsRepository = accountDetailsRepository;
 	}
 	
+	/**
+	 * This method will retrieve account details by customerId
+	 * @param coustmerId
+	 * @return AccountDetails
+	 */
 	@Transactional
-	public AccountDetails getAccountDetails(String coustmerId) {
+	public AccountInfo getAccountDetails(String coustmerId) {
 		Optional<AccountDetails> acctDetails = accountDetailsRepository.findByCustomerId(UUID.fromString(coustmerId));
 		if (acctDetails.isPresent()) {
-			return acctDetails.get();
+			return getAcctInfo(acctDetails.get());
 		} else {
-			throw new APIException("Account details not found");
+			throw new AccountRegistrationAPIException("Account details not found");
 		}
+	}
+	
+	private AccountInfo getAcctInfo(AccountDetails details) {
+		AccountInfo acctInfo=new AccountInfo();
+		acctInfo.setAccountNumber(details.getAccountNumber());
+		acctInfo.setAccountType(details.getAccountType());
+		acctInfo.setBalance(details.getBalance());
+		acctInfo.setCurrency(details.getCurrency());
+		acctInfo.setAccountCreatedTmstp(details.getAccountCreatedTmstp());
+		return acctInfo;
 	}
 
 }

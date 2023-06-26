@@ -1,12 +1,14 @@
 package com.assignment.accountRegistrationAPI.controller;
 
+import org.openapitools.client.model.LoginInfo;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assignment.accountRegistrationAPI.api.LogonApi;
-import com.assignment.accountRegistrationAPI.model.LoginRequest;
+import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.model.LoginResponse;
 import com.assignment.accountRegistrationAPI.service.LogonService;
 
@@ -17,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class LogonApiController implements LogonApi {
+public class LogonApiController {
 
 	private final LogonService logonService;
 
@@ -25,13 +27,14 @@ public class LogonApiController implements LogonApi {
 		this.logonService = logonService;
 	}
 
-	@Override
+	@PostMapping(value = "/logon", produces = { "application/json" }, consumes = { "application/json" })
 	@RateLimiter(name = "accountRateLimiterAPI", fallbackMethod = "logonRateLimitingFallback")
-	public ResponseEntity<LoginResponse> logon(@Valid LoginRequest LoginInfoRequest) {
+	public ResponseEntity<LoginResponse> logon(@Valid @RequestBody LoginInfo LoginInfoRequest) {
 		return new ResponseEntity<>(logonService.logonCustomer(LoginInfoRequest), HttpStatus.OK);
 	}
 
-	public ResponseEntity<String> logonRateLimitingFallback(LoginRequest LoginInfoRequest ,RequestNotPermitted exception) {
+	public ResponseEntity<String> logonRateLimitingFallback(LoginInfo registrationResponse,
+			RequestNotPermitted exception) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Retry-After", "1s");
 		return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).headers(responseHeaders)

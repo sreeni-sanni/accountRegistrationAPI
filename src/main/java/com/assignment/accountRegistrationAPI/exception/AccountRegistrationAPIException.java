@@ -1,18 +1,18 @@
 package com.assignment.accountRegistrationAPI.exception;
 
-public class APIException extends RuntimeException {
+public class AccountRegistrationAPIException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public APIException(String resourceName, String message) {
+	public AccountRegistrationAPIException(String resourceName, String message) {
 		super(String.format("%s not found with %s", resourceName, message)); 
 		
 	}
 	
-	public APIException(String message) {
+	public AccountRegistrationAPIException(String message) {
 		super(String.format(message)); 
 	}
 

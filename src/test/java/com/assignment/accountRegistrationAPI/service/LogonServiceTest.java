@@ -14,10 +14,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.client.model.LoginInfo;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
-import com.assignment.accountRegistrationAPI.model.Customer;
-import com.assignment.accountRegistrationAPI.model.LoginRequest;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
+import com.assignment.accountRegistrationAPI.model.CustomerInfo;
+import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.model.LoginResponse;
 import com.assignment.accountRegistrationAPI.repository.LogonRepository;
 import com.assignment.accountRegistrationAPI.service.LogonService;
@@ -39,11 +40,13 @@ public class LogonServiceTest {
 	@Test
 	@DisplayName("when customer logged on with success")
 	public void customerLogonTest() {
-		LoginRequest loginReq = new LoginRequest("Sreeni", "gBE3XgRWjZ");
-		Customer cust = new Customer();
+		LoginInfo loginReq = new LoginInfo();
+		loginReq.setUserName("Sreeni");
+		loginReq.setPassword("gBE3XgRWjZ");
+		CustomerInfo cust = new CustomerInfo();
 		cust.setCustomerId(UUID.fromString("01a91d21-a8e6-4841-868f-4ab2eecadc01"));
-		Optional<Customer> customer = Optional.of(cust);
-		when(logonRepository.findByUserNameAndPassword(loginReq.userName(), loginReq.password())).thenReturn(customer);
+		Optional<CustomerInfo> customer = Optional.of(cust);
+		when(logonRepository.findByUserNameAndPassword(loginReq.getUserName(), loginReq.getPassword())).thenReturn(customer);
 		LoginResponse res = logonService.logonCustomer(loginReq);
 		assertEquals(cust.getCustomerId().toString(), res.customerId());
 	}
@@ -51,8 +54,10 @@ public class LogonServiceTest {
 	@Test
 	@DisplayName("when customer logon failed")
 	public void customerLogonExeptionTest() {
-		LoginRequest loginReq = new LoginRequest("Sreeni", "gBE3XgRWjZ");
-		APIException exception = assertThrows(APIException.class, () -> logonService.logonCustomer(loginReq));
+		LoginInfo loginReq = new LoginInfo();
+		loginReq.setUserName("Sreeni");
+		loginReq.setPassword("gBE3XgRWjZ");
+		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class, () -> logonService.logonCustomer(loginReq));
 		assertEquals("Please provide valid userName and password", exception.getMessage());
 	}
 

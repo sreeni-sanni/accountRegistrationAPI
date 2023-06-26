@@ -49,5 +49,5 @@ public class Address {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", insertable = true, updatable = false, unique = true)
-	private Customer customer;
+	private CustomerInfo customer;
 }

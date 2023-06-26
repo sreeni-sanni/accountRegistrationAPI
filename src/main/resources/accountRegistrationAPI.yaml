@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Account Registration
+  description: This API allowed user to register and account with bank.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Register
+    description: Customer can open new account
+  - name: Logon
+    description: Customer can able to login to banking system
+  - name: Overview
+    description: Customer can able to view his account information
+paths:
+  /register:
+    post:
+      tags:
+        - Register
+      summary: Register new account
+      description: This endpoint allow user to register intially with his personal details
+      requestBody:
+        description: It contains the details provided by customer for account registration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginInfo'          
+           
+        '400':
+          description: Bad request
+        '500':
+          description: Internal Server Error
+  /logon:
+    post:
+      tags:
+        - Logon
+      summary: Logon
+      description: Customer logon into online system
+      requestBody:
+        description: Customer logon details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInfo'
+        required: true
+      responses:
+         '200':
+           description: successful operation      
+           content:
+            application/json:
+              schema:
+                type: string
+         '400':
+            description: Bad request
+         '500':
+            description: Internal Server Error
+          
+  /overview:
+    post:
+      tags:
+        - Overview
+      summary: Account overview
+      description: Account overview information
+      requestBody:
+        description: Customer can able to see his account details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginInfo'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfo'          
+           
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+    
+
+  
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        UID:
+          type: UUID
+          example: e16aaefc-1d8d-4706-b866-2cb64e34bf52
+        firstName:
+          type: string
+          example: firstName
+        lastName:
+          type: string
+          example: lastName
+        userName:
+          type: string
+          example: userName
+        dateOfBirth:
+          type: string
+          format: date
+          example: 1992-06-12
+        address:
+          $ref: '#/components/schemas/Address'
+
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: Heliconweg
+        city:
+          type: string
+          example: Leeuwarden
+        state:
+          type: string
+          example: FR
+        country:
+          type: string
+          example: Netherlands
+        zip:
+          type: string
+          example: '8913ET'
+
+    LoginInfo:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: username
+        password:
+          type: string
+          example: password
+        
+    AccountInfo:
+      type: object
+      properties:
+        Id:
+          type: UUID
+          example: e16aaefc-1d8d-4706-b866-2cb64e34bf52
+        accountNumber:
+          type: string
+          example: NL25ABCD9581026521
+        accountType:
+          type: string
+          example: Savings
+        balance:
+          type: integer
+          example: 0
+        currency:
+          type: string
+          example: 'Euro'
+        accountCreatedTmstp:
+          type: LocalDateTime
+          example: '2023-06-26T18:50:39.915554'
+      
+
+ 
+  

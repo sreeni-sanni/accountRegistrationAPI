@@ -1,3 +1,4 @@
+
 package com.assignment.accountRegistrationAPI.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,8 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.client.model.AccountInfo;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 import com.assignment.accountRegistrationAPI.model.AccountDetails;
 import com.assignment.accountRegistrationAPI.repository.AccountDetailsRepository;
 import com.assignment.accountRegistrationAPI.service.AccountDetailsService;
@@ -24,6 +26,7 @@ import com.assignment.accountRegistrationAPI.service.AccountDetailsService;
 public class AccountDetailsServiceTest {
 
 	AccountDetailsService accountDetailsService;
+
 	@Mock
 	AccountDetailsRepository accountDetailsRepository;
 
@@ -34,6 +37,7 @@ public class AccountDetailsServiceTest {
 	}
 
 	@Test
+
 	@DisplayName("customer accountdeatils with based on customerId")
 	public void getAccountDetailsTest() {
 		AccountDetails acctDetails = new AccountDetails();
@@ -44,14 +48,15 @@ public class AccountDetailsServiceTest {
 		Optional<AccountDetails> accDetails = Optional.of(acctDetails);
 		when(accountDetailsRepository.findByCustomerId(UUID.fromString("01a91d21-a8e6-4841-868f-4ab2eecadc01")))
 				.thenReturn(accDetails);
-		AccountDetails res = accountDetailsService.getAccountDetails("01a91d21-a8e6-4841-868f-4ab2eecadc01");
+		AccountInfo res = accountDetailsService.getAccountDetails("01a91d21-a8e6-4841-868f-4ab2eecadc01");
 		assertEquals(acctDetails.getAccountNumber(), res.getAccountNumber());
 	}
 
 	@Test
+
 	@DisplayName("when customer accountdeatils not found")
 	public void accountDetailsExeptionTest() {
-		APIException exception = assertThrows(APIException.class,
+		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class,
 				() -> accountDetailsService.getAccountDetails("01a91d21-a8e6-4841-868f-4ab2eecadc01"));
 		assertEquals("Account details not found", exception.getMessage());
 	}

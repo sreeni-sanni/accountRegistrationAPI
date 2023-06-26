@@ -1,17 +1,20 @@
 package com.assignment.accountRegistrationAPI.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import org.openapitools.client.model.Customer;
+import org.openapitools.client.model.LoginInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 import com.assignment.accountRegistrationAPI.model.AccountDetails;
-import com.assignment.accountRegistrationAPI.model.Customer;
+import com.assignment.accountRegistrationAPI.model.Address;
+import com.assignment.accountRegistrationAPI.model.CustomerInfo;
 import com.assignment.accountRegistrationAPI.model.CustomerIdentificationFile;
-import com.assignment.accountRegistrationAPI.model.LoginRequest;
+import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.repository.RegisterRepository;
 import com.assignment.accountRegistrationAPI.utils.Utils;
 
@@ -29,28 +32,65 @@ public class RegisterService {
 		this.utils = utils;
 	}
 
-	public LoginRequest cutomerRegistration(Customer customerReq, MultipartFile file) throws APIException {
+	/**
+	 * This method will Register Customer bases customer request It will do
+	 * validations against user request -> customer name should be unique ->
+	 * customer age must be more than 18 years -> customer should be allowed
+	 * countries -> customer should provide valid identification documnet
+	 * 
+	 * @param customerReq
+	 * @param file
+	 * @return
+	 * @throws AccountRegistrationAPIException
+	 */
+	public RegistrationResponse cutomerRegistration(Customer customerReq, MultipartFile file)
+			throws AccountRegistrationAPIException {
 
 		if (registerRepository.existsByUserName(customerReq.getUserName()))
-			throw new APIException("Username is already exists,Please provide different username");
-		
+			throw new AccountRegistrationAPIException("Username is already exists,Please provide different username");
+
 		if (!utils.checkAgeEligibility(customerReq.getDateOfBirth()))
-			throw new APIException("Age must more than 18 years old");
+			throw new AccountRegistrationAPIException("Age must more than 18 years old");
 
 		if (!utils.verifyCountry(customerReq.getAddress().getCountry()))
-			throw new APIException("Customer is not belongs to allowed countries");
+			throw new AccountRegistrationAPIException("Customer is not belongs to allowed countries");
 
 		if (ObjectUtils.isEmpty(file) || file.isEmpty())
-			throw new APIException("Please provide valid identity document");
+			throw new AccountRegistrationAPIException("Please provide valid identity document");
 
-		retrieveIdentificationDoc(customerReq, file);
-		createAccount(customerReq);
-		customerReq.setPassword(utils.generatePassword());
-		Customer registeredCust=registerRepository.save(customerReq);
-		return new LoginRequest(registeredCust.getUserName(), registeredCust.getPassword());
+		CustomerInfo registeredCust = registerRepository.save(createCustomer(customerReq, file));
+		return new RegistrationResponse(registeredCust.getUserName(),registeredCust.getPassword());
 	}
 
-	private void retrieveIdentificationDoc(Customer customerReq, MultipartFile file) {
+	private CustomerInfo createCustomer(Customer customerReq, MultipartFile file) {
+		CustomerInfo entiry = new CustomerInfo();
+		entiry.setFirstName(customerReq.getFirstName());
+		entiry.setLastName(customerReq.getLastName());
+		entiry.setUserName(customerReq.getUserName());
+		entiry.setDateOfBirth(customerReq.getDateOfBirth());
+		entiry.setPassword(utils.generatePassword());
+		getAddress(entiry,customerReq);
+		createAccount(entiry);
+		retrieveIdentificationDoc(entiry, file);
+		return entiry;
+
+	}
+	
+	private void getAddress(CustomerInfo entiry,Customer customerReq) {
+		Address addrs=new Address();
+		addrs.setCity(customerReq.getAddress().getCity());
+		addrs.setCountry(customerReq.getAddress().getCountry());
+		addrs.setState(customerReq.getAddress().getState());
+		addrs.setStreet(customerReq.getAddress().getStreet());
+		addrs.setZip(customerReq.getAddress().getZip());
+		entiry.setAddress(addrs);
+	}
+
+	/**
+	 * @param customerReq
+	 * @param file
+	 */
+	private void retrieveIdentificationDoc(CustomerInfo customerReq, MultipartFile file) {
 		try {
 			CustomerIdentificationFile custIdentificationFile = new CustomerIdentificationFile();
 			custIdentificationFile.setName(file.getOriginalFilename());
@@ -58,18 +98,21 @@ public class RegisterService {
 			custIdentificationFile.setData(file.getBytes());
 			customerReq.setCustomerIdentificationFile(custIdentificationFile);
 		} catch (IOException e) {
-			throw new APIException(e.getMessage());
+			throw new AccountRegistrationAPIException(e.getMessage());
 		}
 	}
 
-	private void createAccount(Customer customerReq) {
+	/**
+	 * @param customerReq
+	 */
+	private void createAccount(CustomerInfo customerReq) {
 
 		AccountDetails accountInfo = new AccountDetails();
 		accountInfo.setAccountNumber(utils.generatorIbanNumber(customerReq.getAddress().getCountry()));
 		accountInfo.setAccountType("Savings");
 		accountInfo.setBalance(0);
 		accountInfo.setCurrency("€");
-		accountInfo.setAccountCreatedTmstp(LocalDate.now());
+		accountInfo.setAccountCreatedTmstp(LocalDateTime.now());
 		customerReq.setAccountInfo(accountInfo);
 	}
 

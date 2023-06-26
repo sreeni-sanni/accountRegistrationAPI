@@ -1,6 +1,6 @@
 package com.assignment.accountRegistrationAPI.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ErrorDetails {
 
-	private LocalDate timestamp;
+	private LocalDateTime timestamp;
 	private String message;
 	private String details;
 }

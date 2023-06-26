@@ -1,13 +1,11 @@
 package com.assignment.accountRegistrationAPI.model;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,10 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -53,15 +49,15 @@ public class AccountDetails {
 
 	@JsonProperty("accountCreatedTmstp")
 	@Column(name = "accountCreatedTmstp")
-	private LocalDate accountCreatedTmstp = null;
+	private LocalDateTime accountCreatedTmstp = null;
 
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", insertable = true, updatable = false, unique = true)
-	private Customer customer;
+	private CustomerInfo customer;
 
 	public AccountDetails(String accountNumber, String accountType, Integer balance, String currency,
-			LocalDate accountCreatedTmstp) {
+			LocalDateTime accountCreatedTmstp) {
 		super();
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;

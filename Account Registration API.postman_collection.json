@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "60e1f607-f4e4-4ae8-ab34-88277aaa5dc0",
+		"name": "Account Registration API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2271879",
+		"_collection_link": "https://restless-crescent-488013.postman.co/workspace/Team-Workspace~4c71037b-f1ff-47de-8d21-2c061a2d445f/collection/2271879-60e1f607-f4e4-4ae8-ab34-88277aaa5dc0?action=share&creator=2271879&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "",
+							"type": "file",
+							"src": "/C:/Users/sreenivasulu.sannibo/Documents/IMG_2696.jpg"
+						},
+						{
+							"key": "customer",
+							"value": "{\n  \"firstName\": \"testName\",\n  \"lastName\": \"testLastname\",\n  \"userName\": \"testUser\",\n  \"dateOfBirth\": \"2000-01-30\",\n \n  \"address\": {\n    \"street\": \"437 Lytton\",\n    \"city\": \"Palo Alto\",\n    \"state\": \"CA\",\n    \"country\": \"Netherlands\",\n    \"zip\": \"1895ET\"\n  }\n}",
+							"contentType": "application/json",
+							"description": " ",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register - customer Address test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/sreenivasulu.sannibo/Documents/images.jfif"
+						},
+						{
+							"key": "customer",
+							"value": "{\n  \"firstName\": \"testName\",\n  \"lastName\": \"testLastname\",\n  \"userName\": \"testUse\",\n  \"dateOfBirth\": \"2000-06-12\",\n \n  \"address\": {\n    \"street\": \"437 Lytton\",\n    \"city\": \"Palo Alto\",\n    \"state\": \"CA\",\n    \"country\": \"France\",\n    \"zip\": \"1895ET\"\n  }\n}",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register - Username already exist test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/sreenivasulu.sannibo/Documents/images.jfif"
+						},
+						{
+							"key": "customer",
+							"value": "{\n  \"firstName\": \"testName\",\n  \"lastName\": \"testLastname\",\n  \"userName\": \"testUser\",\n  \"dateOfBirth\": \"2000-06-12\",\n \n  \"address\": {\n    \"street\": \"437 Lytton\",\n    \"city\": \"Palo Alto\",\n    \"state\": \"CA\",\n    \"country\": \"Netherlands\",\n    \"zip\": \"1895ET\"\n  }\n}",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register - customer age test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/sreenivasulu.sannibo/Documents/images.jfif"
+						},
+						{
+							"key": "customer",
+							"value": "{\n  \"firstName\": \"testName\",\n  \"lastName\": \"testLastname\",\n  \"userName\": \"testAgeUser\",\n  \"dateOfBirth\": \"2006-06-12\",\n \n  \"address\": {\n    \"street\": \"437 Lytton\",\n    \"city\": \"Palo Alto\",\n    \"state\": \"CA\",\n    \"country\": \"Netherlands\",\n    \"zip\": \"1895ET\"\n  }\n}",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "customer",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register - customer identity document test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "customer",
+							"value": "{\n  \"firstName\": \"testName\",\n  \"lastName\": \"testLastname\",\n  \"userName\": \"testAgeUser\",\n  \"dateOfBirth\": \"2000-06-12\",\n \n  \"address\": {\n    \"street\": \"437 Lytton\",\n    \"city\": \"Palo Alto\",\n    \"state\": \"CA\",\n    \"country\": \"Netherlands\",\n    \"zip\": \"1895ET\"\n  }\n}",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "customer",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"testUser\",\r\n    \"password\": \"6s0fT54MYA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/logon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"logon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overview",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/overview?customerId=75f357b4-f0e4-4c88-86b5-90587141a4d3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"overview"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "75f357b4-f0e4-4c88-86b5-90587141a4d3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

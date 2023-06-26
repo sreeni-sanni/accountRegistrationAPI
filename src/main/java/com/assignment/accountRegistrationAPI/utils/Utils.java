@@ -9,8 +9,10 @@ import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.assignment.accountRegistrationAPI.exception.APIException;
+import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 
 @Component
 public class Utils {
@@ -26,6 +28,11 @@ public class Utils {
 		return Period.between(birthDate, LocalDate.now()).getYears() > 18;
 	}
 
+	/**
+	 * Method will generator Iban number based on country
+	 * @param countryName
+	 * @return
+	 */
 	public String generatorIbanNumber(String countryName) {
 		Iban iban = null;
 		switch (countryName) {
@@ -38,11 +45,14 @@ public class Utils {
 		 * Iban.Builder().countryCode(CountryCode.DE).bankCode("12345678").buildRandom()
 		 * ;
 		 */
-		default -> throw new APIException("Requested country is not allowed");
+		default -> throw new AccountRegistrationAPIException("Requested country is not allowed");
 		}
 		return iban.toString();
 	}
 
+	/**
+	 * @return
+	 */
 	public String generatePassword() {
 		String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String num = "0123456789";
@@ -55,4 +65,5 @@ public class Utils {
 		}
 		return sb.toString();
 	}
+
 }

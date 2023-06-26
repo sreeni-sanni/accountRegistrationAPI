@@ -22,8 +22,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "customer")
-public class Customer {
+@Table(name = "CustomerInfo")
+public class CustomerInfo {
 
 	@JsonProperty("customerId")
 	@Id
