@@ -189,6 +189,7 @@
 	                <excludes>
 	                 	<exclude>**/org/openapitools/client/**/*.*</exclude>
 				     	<exclude>**/com/assignment/accountRegistrationAPI/entity/*.*</exclude>
+				     	<exclude>**/com/assignment/accountRegistrationAPI/model/*.*</exclude>
 	                </excludes>
 	            </configuration>
 	        </plugin>
