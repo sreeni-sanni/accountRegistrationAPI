@@ -1,8 +1,9 @@
-# accountRegistrationAPI
+# AccountRegistrationAPI
 
-Customer can register and open a new account online. This API developed using java 17,spring boot 3 and maven.
+When customer trying to register with his details using /register endpoint and once the registration process get success in the background IBAN will be created and assign to customer. Customer can also  logon using /logon endpoint. Later he can also view his account information using /overview endpoint. 
+This API developed using latest frameworks like Java 17, Spring Boot 3.1.0 and Maven.
 
-Please follow below steps to run API in local machine.
+## Please follow below steps to run API in local machine.
 - Build project using maven:
   - mvn clean package
 - Run application using docker compose. It will use docker file to create docker image for API:
