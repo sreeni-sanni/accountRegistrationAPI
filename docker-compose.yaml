@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    
+    volumes:
+    - ./data/pgsql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Sreeni575@
+      POSTGRES_DB: customerInformation
+      PGUSER: "postgres"
+  accountregister:
+    depends_on:
+      - db
+    build: ./
+    ports:
+     - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/customerInformation
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Sreeni575@
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  
+    
+     
