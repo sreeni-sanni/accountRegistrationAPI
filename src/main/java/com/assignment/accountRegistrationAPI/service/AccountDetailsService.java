@@ -40,6 +40,7 @@ public class AccountDetailsService {
 	
 	private AccountInfo getAcctInfo(AccountDetails details) {
 		AccountInfo acctInfo=new AccountInfo();
+		acctInfo.setId(details.getId());
 		acctInfo.setAccountNumber(details.getAccountNumber());
 		acctInfo.setAccountType(details.getAccountType());
 		acctInfo.setBalance(details.getBalance());

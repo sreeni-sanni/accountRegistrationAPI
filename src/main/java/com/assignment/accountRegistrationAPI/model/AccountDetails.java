@@ -56,9 +56,10 @@ public class AccountDetails {
 	@JoinColumn(name = "customer_id", insertable = true, updatable = false, unique = true)
 	private CustomerInfo customer;
 
-	public AccountDetails(String accountNumber, String accountType, Integer balance, String currency,
+	public AccountDetails(UUID id,String accountNumber, String accountType, Integer balance, String currency,
 			LocalDateTime accountCreatedTmstp) {
 		super();
+		this.id=id;
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
 		this.balance = balance;
