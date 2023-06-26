@@ -38,13 +38,7 @@ public class Utils {
 		switch (countryName) {
 		case "Netherlands", "Belgium", "Germany" ->
 			iban = new Iban.Builder().countryCode(CountryCode.NL).bankCode("ABCD").buildRandom();
-		/*
-		 * case "Belgium" -> iban = new
-		 * Iban.Builder().countryCode(CountryCode.BE).bankCode("123").buildRandom();
-		 * case "Germany" -> iban = new
-		 * Iban.Builder().countryCode(CountryCode.DE).bankCode("12345678").buildRandom()
-		 * ;
-		 */
+
 		default -> throw new AccountRegistrationAPIException("Requested country is not allowed");
 		}
 		return iban.toString();
