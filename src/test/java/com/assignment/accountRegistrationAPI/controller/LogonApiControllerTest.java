@@ -15,6 +15,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.model.LoginInfo;
+import org.openapitools.client.model.LoginResponse;
+import org.openapitools.client.model.RegisterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,8 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.assignment.accountRegistrationAPI.controller.LogonApiController;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
-import com.assignment.accountRegistrationAPI.model.LoginResponse;
 import com.assignment.accountRegistrationAPI.service.LogonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,8 +48,12 @@ public class LogonApiControllerTest {
 	@Test
 	@DisplayName("Customer logon")
 	public void logonTest() throws Exception {
-		RegistrationResponse req = new RegistrationResponse("Sreeni", "gBE3XgRWjZ");
-		LoginResponse response = new LoginResponse("01a91d21-a8e6-4841-868f-4ab2eecadc01", "successfully loggedon");
+		RegisterResponse req = new RegisterResponse();
+		req.setUserName("userName");
+		req.setPassword("gBE3XgRWjZ");
+		LoginResponse response = new LoginResponse();
+		response.setCustomerId("01a91d21-a8e6-4841-868f-4ab2eecadc01");
+		response.setMessage("Successfully logged on");
 		when(logonService.logonCustomer(any())).thenReturn(response);
 		mockMvc.perform(
 				post("/logon").contentType("application/json").content(new ObjectMapper().writeValueAsString(req)))

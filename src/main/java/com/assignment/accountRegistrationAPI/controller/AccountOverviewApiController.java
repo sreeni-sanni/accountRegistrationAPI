@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assignment.accountRegistrationAPI.model.AccountDetails;
+import com.assignment.accountRegistrationAPI.entity.AccountDetails;
 import com.assignment.accountRegistrationAPI.service.AccountDetailsService;
 
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;

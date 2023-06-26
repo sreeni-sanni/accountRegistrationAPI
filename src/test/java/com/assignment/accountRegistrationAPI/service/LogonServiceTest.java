@@ -15,11 +15,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.model.LoginInfo;
+import org.openapitools.client.model.LoginResponse;
 
+import com.assignment.accountRegistrationAPI.entity.CustomerInfo;
 import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
-import com.assignment.accountRegistrationAPI.model.LoginResponse;
 import com.assignment.accountRegistrationAPI.repository.LogonRepository;
 import com.assignment.accountRegistrationAPI.service.LogonService;
 
@@ -48,7 +47,7 @@ public class LogonServiceTest {
 		Optional<CustomerInfo> customer = Optional.of(cust);
 		when(logonRepository.findByUserNameAndPassword(loginReq.getUserName(), loginReq.getPassword())).thenReturn(customer);
 		LoginResponse res = logonService.logonCustomer(loginReq);
-		assertEquals(cust.getCustomerId().toString(), res.customerId());
+		assertEquals(cust.getCustomerId().toString(), res.getCustomerId());
 	}
 
 	@Test

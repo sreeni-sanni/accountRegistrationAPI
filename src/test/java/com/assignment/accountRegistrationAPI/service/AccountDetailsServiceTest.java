@@ -17,8 +17,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.model.AccountInfo;
 
+import com.assignment.accountRegistrationAPI.entity.AccountDetails;
 import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
-import com.assignment.accountRegistrationAPI.model.AccountDetails;
 import com.assignment.accountRegistrationAPI.repository.AccountDetailsRepository;
 import com.assignment.accountRegistrationAPI.service.AccountDetailsService;
 

@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 
 import org.openapitools.client.model.Customer;
 import org.openapitools.client.model.LoginInfo;
+import org.openapitools.client.model.RegisterResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.assignment.accountRegistrationAPI.entity.AccountDetails;
+import com.assignment.accountRegistrationAPI.entity.Address;
+import com.assignment.accountRegistrationAPI.entity.CustomerIdentificationFile;
+import com.assignment.accountRegistrationAPI.entity.CustomerInfo;
 import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
-import com.assignment.accountRegistrationAPI.model.AccountDetails;
-import com.assignment.accountRegistrationAPI.model.Address;
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
-import com.assignment.accountRegistrationAPI.model.CustomerIdentificationFile;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.repository.RegisterRepository;
 import com.assignment.accountRegistrationAPI.utils.Utils;
 
@@ -43,7 +43,7 @@ public class RegisterService {
 	 * @return
 	 * @throws AccountRegistrationAPIException
 	 */
-	public RegistrationResponse cutomerRegistration(Customer customerReq, MultipartFile file)
+	public RegisterResponse cutomerRegistration(Customer customerReq, MultipartFile file)
 			throws AccountRegistrationAPIException {
 
 		if (registerRepository.existsByUserName(customerReq.getUserName()))
@@ -59,7 +59,10 @@ public class RegisterService {
 			throw new AccountRegistrationAPIException("Please provide valid identity document");
 
 		CustomerInfo registeredCust = registerRepository.save(createCustomer(customerReq, file));
-		return new RegistrationResponse(registeredCust.getUserName(),registeredCust.getPassword());
+		RegisterResponse rResponse = new RegisterResponse();
+		rResponse.setUserName(registeredCust.getUserName());
+		rResponse.setPassword(registeredCust.getPassword());
+		return rResponse;
 	}
 
 	private CustomerInfo createCustomer(Customer customerReq, MultipartFile file) {

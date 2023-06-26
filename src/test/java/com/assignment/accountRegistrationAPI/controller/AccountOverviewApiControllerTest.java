@@ -24,7 +24,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.assignment.accountRegistrationAPI.model.AccountDetails;
+import com.assignment.accountRegistrationAPI.entity.AccountDetails;
 import com.assignment.accountRegistrationAPI.service.AccountDetailsService;
 
 @ExtendWith(MockitoExtension.class)

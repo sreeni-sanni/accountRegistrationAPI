@@ -1,4 +1,4 @@
-package com.assignment.accountRegistrationAPI.model;
+package com.assignment.accountRegistrationAPI.entity;
 
 import java.time.LocalDate;
 import java.util.UUID;

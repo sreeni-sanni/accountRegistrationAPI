@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.assignment.accountRegistrationAPI.model.AccountDetails;
+import com.assignment.accountRegistrationAPI.entity.AccountDetails;
 
 @Repository
 public interface AccountDetailsRepository extends JpaRepository<AccountDetails, UUID>{

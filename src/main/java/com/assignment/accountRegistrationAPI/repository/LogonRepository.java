@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
+import com.assignment.accountRegistrationAPI.entity.CustomerInfo;
 
 @Repository
 public interface LogonRepository extends JpaRepository<CustomerInfo, UUID> {

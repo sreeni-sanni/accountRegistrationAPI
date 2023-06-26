@@ -1,6 +1,7 @@
 package com.assignment.accountRegistrationAPI.controller;
 
 import org.openapitools.client.model.LoginInfo;
+import org.openapitools.client.model.LoginResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
-import com.assignment.accountRegistrationAPI.model.LoginResponse;
 import com.assignment.accountRegistrationAPI.service.LogonService;
 
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;

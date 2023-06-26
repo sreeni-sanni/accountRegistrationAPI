@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.model.Customer;
+import org.openapitools.client.model.RegisterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,8 +25,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.assignment.accountRegistrationAPI.controller.RegisterApiController;
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
+import com.assignment.accountRegistrationAPI.entity.CustomerInfo;
 import com.assignment.accountRegistrationAPI.service.RegisterService;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,10 +55,12 @@ public class RegisterApiControllerTest {
 		MockMultipartFile file = new MockMultipartFile("file", "image/jpeg", "multipart/form-data", "pic".getBytes());
 		MockMultipartFile jsonFile = new MockMultipartFile("customer", "", "application/json",
 				getCustomerRequest().getBytes());
-		RegistrationResponse res = new RegistrationResponse("S.Sanniboena", "gBE3XgRWjZ");
+		RegisterResponse res = new RegisterResponse();
+		res.setUserName("userName");
+		res.setPassword("gBE3XgRWjZ");
 		when(registerService.cutomerRegistration(any(), any())).thenReturn(res);
 		mockMvc.perform(multipart("/register").file(file).file(jsonFile)).andExpect(status().isOk())
-				.andExpect(jsonPath("$.userName", is("S.Sanniboena")));
+				.andExpect(jsonPath("$.userName", is("userName")));
 	}
 
 	@Test

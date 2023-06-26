@@ -16,11 +16,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.model.Address;
 import org.openapitools.client.model.Customer;
+import org.openapitools.client.model.RegisterResponse;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.assignment.accountRegistrationAPI.entity.CustomerInfo;
 import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.repository.RegisterRepository;
 import com.assignment.accountRegistrationAPI.utils.Utils;
 
@@ -53,8 +53,8 @@ public class RegisterServiceTest {
 		when(utils.checkAgeEligibility(customer.getDateOfBirth())).thenReturn(true);
 		when(utils.verifyCountry(customer.getAddress().getCountry())).thenReturn(true);
 		when(registerRepository.save(any(CustomerInfo.class))).thenReturn(custEntity);
-		RegistrationResponse res = registerService.cutomerRegistration(customer, file);
-		assertEquals(res.userName(), customer.getUserName());
+		RegisterResponse res = registerService.cutomerRegistration(customer, file);
+		assertEquals(res.getUserName(), customer.getUserName());
 	}
 
 	@Test

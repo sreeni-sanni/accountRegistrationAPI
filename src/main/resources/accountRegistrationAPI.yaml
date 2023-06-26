@@ -33,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginInfo'          
+                $ref: '#/components/schemas/RegisterResponse'
            
         '400':
           description: Bad request
@@ -58,7 +58,7 @@ paths:
            content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/LoginResponse'
          '400':
             description: Bad request
          '500':
@@ -94,6 +94,26 @@ paths:
   
 components:
   schemas:
+    LoginResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          example: customerId
+        message:
+          type: string
+          example: Successful
+          
+    RegisterResponse:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: usename
+        password:
+          type: string
+          example: password
+          
     Customer:
       type: object
       properties:

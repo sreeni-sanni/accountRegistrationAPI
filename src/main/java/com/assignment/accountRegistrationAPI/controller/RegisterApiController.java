@@ -1,6 +1,7 @@
 package com.assignment.accountRegistrationAPI.controller;
 
 import org.openapitools.client.model.Customer;
+import org.openapitools.client.model.RegisterResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.assignment.accountRegistrationAPI.model.CustomerInfo;
-import com.assignment.accountRegistrationAPI.model.RegistrationResponse;
 import com.assignment.accountRegistrationAPI.service.RegisterService;
 
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
@@ -28,9 +27,9 @@ public class RegisterApiController {
 		this.registerService = registerService;
 	}
 
-	@PostMapping(value = "/register", produces = { "application/json" }, consumes = { "application/json","multipart/form-data" })
+	@PostMapping(value = "/register", produces = { "application/json" }, consumes = { "multipart/form-data" })
 	@RateLimiter(name = "accountRateLimiterAPI", fallbackMethod = "rigisterRateLimitingFallback")
-	public ResponseEntity<RegistrationResponse> register(@Valid @RequestPart Customer customer, MultipartFile file) {
+	public ResponseEntity<RegisterResponse> register(@Valid @RequestPart Customer customer, MultipartFile file) {
 		return new ResponseEntity<>(registerService.cutomerRegistration(customer, file), HttpStatus.OK);
 	}
 
