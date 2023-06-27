@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import org.openapitools.client.model.Customer;
-import org.openapitools.client.model.LoginInfo;
 import org.openapitools.client.model.RegisterResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -47,13 +46,13 @@ public class RegisterService {
 			throws AccountRegistrationAPIException {
 
 		if (registerRepository.existsByUserName(customerReq.getUserName()))
-			throw new AccountRegistrationAPIException("Username is already exists,Please provide different username");
+			throw new AccountRegistrationAPIException("Username already exists,Please provide different username");
 
 		if (!utils.checkAgeEligibility(customerReq.getDateOfBirth()))
-			throw new AccountRegistrationAPIException("Age must more than 18 years old");
+			throw new AccountRegistrationAPIException("Age must be more than 18 years old");
 
 		if (!utils.verifyCountry(customerReq.getAddress().getCountry()))
-			throw new AccountRegistrationAPIException("Customer is not belongs to allowed countries");
+			throw new AccountRegistrationAPIException("Customer does not belongs to allowed countries");
 
 		if (ObjectUtils.isEmpty(file) || file.isEmpty())
 			throw new AccountRegistrationAPIException("Please provide valid identity document");
@@ -89,10 +88,7 @@ public class RegisterService {
 		entiry.setAddress(addrs);
 	}
 
-	/**
-	 * @param customerReq
-	 * @param file
-	 */
+	
 	private void retrieveIdentificationDoc(CustomerInfo customerReq, MultipartFile file) {
 		try {
 			CustomerIdentificationFile custIdentificationFile = new CustomerIdentificationFile();
@@ -105,9 +101,7 @@ public class RegisterService {
 		}
 	}
 
-	/**
-	 * @param customerReq
-	 */
+	
 	private void createAccount(CustomerInfo customerReq) {
 
 		AccountDetails accountInfo = new AccountDetails();

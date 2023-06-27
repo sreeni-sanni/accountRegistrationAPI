@@ -9,8 +9,6 @@ import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.assignment.accountRegistrationAPI.exception.AccountRegistrationAPIException;
 

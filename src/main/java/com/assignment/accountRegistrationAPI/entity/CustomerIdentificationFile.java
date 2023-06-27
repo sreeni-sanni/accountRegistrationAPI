@@ -2,7 +2,6 @@ package com.assignment.accountRegistrationAPI.entity;
 
 import java.util.UUID;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

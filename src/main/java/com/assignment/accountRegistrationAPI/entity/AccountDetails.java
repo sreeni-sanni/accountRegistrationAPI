@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,34 +19,27 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 @Table(name = "accountInfo")
 public class AccountDetails {
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "id")
 	private UUID id = null;
 
-	@JsonProperty("accountNumber")
 	@Column(name = "accountNumber")
 	private String accountNumber = null;
 
-	@JsonProperty("accountType")
 	@Column(name = "accountType")
 	private String accountType = null;
 
-	@JsonProperty("balance")
 	@Column(name = "balance")
 	private Integer balance = null;
 
-	@JsonProperty("currency")
 	@Column(name = "currency")
 	private String currency = null;
 
-	@JsonProperty("accountCreatedTmstp")
 	@Column(name = "accountCreatedTmstp")
 	private LocalDateTime accountCreatedTmstp = null;
 
