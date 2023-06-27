@@ -66,7 +66,7 @@ public class RegisterServiceTest {
 		when(registerRepository.existsByUserName(any())).thenReturn(true);
 		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class,
 				() -> registerService.cutomerRegistration(cust, file));
-		assertEquals("Username is already exists,Please provide different username", exception.getMessage());
+		assertEquals("Username already exists,Please provide different username", exception.getMessage());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class RegisterServiceTest {
 		when(utils.checkAgeEligibility(any())).thenReturn(false);
 		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class,
 				() -> registerService.cutomerRegistration(cust, file));
-		assertEquals("Age must more than 18 years old", exception.getMessage());
+		assertEquals("Age must be more than 18 years old", exception.getMessage());
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class RegisterServiceTest {
 		when(utils.verifyCountry(any())).thenReturn(false);
 		AccountRegistrationAPIException exception = assertThrows(AccountRegistrationAPIException.class,
 				() -> registerService.cutomerRegistration(cust, file));
-		assertEquals("Customer is not belongs to allowed countries", exception.getMessage());
+		assertEquals("Customer does not belongs to allowed countries", exception.getMessage());
 	}
 	
 	@Test
