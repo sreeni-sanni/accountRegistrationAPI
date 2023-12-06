@@ -24,7 +24,7 @@ stages:
         - task: CopyFiles@2
           inputs:
             SourceFolder: '$(System.DefaultWorkingDirectory)'
-            Contents: '**/target/*.jar'
+            Contents: '**'
             TargetFolder: '$(Build.ArtifactStagingDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
@@ -40,5 +40,5 @@ stages:
             containerRegistry: 'dockerHub'
             repository: 'accountregistration'
             command: 'buildAndPush'
-            Dockerfile: 'dockerfile'
-            buildContext: '$(Build.Repository.LocalPath)'
+            Dockerfile: '$(Build.ArtifactStagingDirectory)/dockerfile'
+            buildContext: '$(Build.ArtifactStagingDirectory)'
