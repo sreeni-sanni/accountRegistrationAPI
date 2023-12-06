@@ -24,11 +24,11 @@ stages:
         - task: CopyFiles@2
           inputs:
             Contents: '**'
-            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+            TargetFolder: '$(Build.SourcesDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: 'sreeni'
+            PathtoPublish: '$(Build.SourcesDirectory)/target'
+            ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
   - stage: docker  
     jobs:
