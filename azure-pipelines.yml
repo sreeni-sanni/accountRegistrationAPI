@@ -40,5 +40,5 @@ stages:
             containerRegistry: 'dockerHub'
             repository: 'accountregistration'
             command: 'buildAndPush'
-            Dockerfile: '**/dockerfile'
+            Dockerfile: 'Dockerfile'
             buildContext: '$(Build.ArtifactStagingDirectory)'
