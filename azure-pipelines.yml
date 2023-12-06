@@ -41,3 +41,4 @@ stages:
             repository: 'accountregistration'
             command: 'buildAndPush'
             Dockerfile: 'dockerfile'
+            buildContext: '$(Build.Repository.LocalPath)'
