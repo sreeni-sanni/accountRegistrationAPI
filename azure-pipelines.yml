@@ -30,4 +30,13 @@ stages:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'sreeni'
             publishLocation: 'Container'
-    
+  - stage: docker  
+    jobs:
+      - job: docker
+        steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'dockerHub'
+            repository: 'accountregistration'
+            command: 'buildAndPush'
+            Dockerfile: 'dockerfile'
