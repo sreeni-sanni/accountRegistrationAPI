@@ -21,10 +21,6 @@ stages:
             mavenAuthenticateFeed: false
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
-        - task: CopyFiles@2
-          inputs:
-            Contents: '**'
-            TargetFolder: '$(Build.SourcesDirectory)'
         - task: PublishBuildArtifacts@1
           inputs:
             PathtoPublish: '$(Build.SourcesDirectory)/target'
