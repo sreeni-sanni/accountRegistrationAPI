@@ -33,9 +33,9 @@ public class RegisterService {
 
 	/**
 	 * This method will Register Customer bases customer request It will do
-	 * validations against user request -> customer name should be unique ->
-	 * customer age must be more than 18 years -> customer should be allowed
-	 * countries -> customer should provide valid identification documnet
+	 * validations against user request -> customer useeName should be unique ->
+	 * customer age must be more than 18 years -> customer should be part of allowed
+	 * countries -> customer should provide valid identification document
 	 * 
 	 * @param customerReq
 	 * @param file

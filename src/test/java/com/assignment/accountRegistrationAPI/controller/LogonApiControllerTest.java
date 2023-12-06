@@ -23,7 +23,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.assignment.accountRegistrationAPI.controller.LogonApiController;
 import com.assignment.accountRegistrationAPI.service.LogonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
