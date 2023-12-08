@@ -70,4 +70,4 @@ stages:
               chartType: 'Name'
               chartName: '$(Build.SourcesDirectory)'
               releaseName: 'accountChart'
-              valueFile: '$(Build.SourcesDirectory)/values.yaml'
+              valueFile: '$(Build.SourcesDirectory)/accountChart/values.yaml'
