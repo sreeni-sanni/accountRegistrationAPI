@@ -38,7 +38,7 @@ stages:
             downloadPath: '$(Build.ArtifactStagingDirectory)'
 
         - script: |
-                 cp $(Build.ArtifactStagingDirectory)/sreeni-sanni/accountRegistrationAPI/accountRegistrationAPI-0.0.1-SNAPSHOT.jar $(Build.SourcesDirectory)/target
+                 cp $(Build.ArtifactStagingDirectory)/sreeni-sanni/accountRegistrationAPI/accountRegistrationAPI-0.0.1-SNAPSHOT.jar $(Build.SourcesDirectory)
            
         - task: Docker@2
           inputs:
