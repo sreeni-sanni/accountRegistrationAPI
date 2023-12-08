@@ -21,31 +21,21 @@ stages:
             mavenAuthenticateFeed: false
             effectivePomSkip: false
             sonarQubeRunAnalysis: false
-        - task: CopyFiles@2
-          inputs:
-            SourceFolder: '$(System.DefaultWorkingDirectory)'
-            Contents: '**'
-            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/target'
+            PathtoPublish: '$(System.SourceDirectory)/target'
             ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
   - stage: docker  
     jobs:
       - job: docker
         steps:
-        - task: DownloadBuildArtifacts@1
-          inputs:
-            buildType: 'current'
-            downloadType: 'single'
-            artifactName: '$(Build.Repository.Name)'
-            downloadPath: '$(System.ArtifactsDirectory)'
-
+       
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerHub'
             repository: 'accountregistration'
             command: 'buildAndPush'
-            Dockerfile: 'Dockerfile'
-            buildContext: '$(Build.ArtifactStagingDirectory)'
+            Dockerfile: '$(Build.SourcesDirectory)/docker-context/Dockerfile'
+            buildContext: '**'
