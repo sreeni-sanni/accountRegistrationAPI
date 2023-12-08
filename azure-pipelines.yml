@@ -62,7 +62,7 @@ stages:
             inputs:
              script: |
                    cd $(Build.SourcesDirectory)
-                   ls -Rla
+                   ls
 
       - job: Installanddeployhelm
         steps:      
