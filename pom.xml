@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.assignment</groupId>
 	<artifactId>accountRegistrationAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>accountRegistrationAPI</name>
 	<description>Online Account Opening System</description>
 	<properties>
