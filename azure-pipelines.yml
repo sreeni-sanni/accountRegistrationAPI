@@ -67,6 +67,7 @@ stages:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceConnection: 'aks'
               command: 'upgrade'
-              chartName: '$(Build.SourcesDirectory)'
+              chartName: '$(Build.SourcesDirectory)/accountchart'
+              chartPath: '$(Build.SourcesDirectory)/accountchart'
               releaseName: 'accountchart'
               valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
