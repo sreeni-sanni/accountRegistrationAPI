@@ -46,4 +46,5 @@ stages:
             repository: 'accountregistration'
             command: 'buildAndPush'
             Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+            tags: '$(Build.BuildId)'
             buildContext: '**'
