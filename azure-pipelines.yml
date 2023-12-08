@@ -69,5 +69,5 @@ stages:
               command: 'upgrade'
               chartType: 'Name'
               chartName: '$(Build.SourcesDirectory)'
-              releaseName: 'accountChart'
+              releaseName: 'accountchart'
               valueFile: '$(Build.SourcesDirectory)/accountChart/values.yaml'
