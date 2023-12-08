@@ -31,7 +31,15 @@ stages:
     jobs:
       - job: docker
         steps:
-       
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: 'current'
+           # downloadType: 'single'
+            downloadPath: '$(Build.ArtifactStagingDirectory)'
+
+        - script: |
+                 cp $(Build.ArtifactStagingDirectory)/accountRegistationAPI/accountRegistrationAPI-0.0.1-SNAPSHOT.jar $(Build.SourcesDirectory)/target
+           
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerHub'
