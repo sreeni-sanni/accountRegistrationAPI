@@ -61,8 +61,8 @@ stages:
           - task: CmdLine@2
             inputs:
              script: |
-                   echo 'Build.SourcesDirectory:' 
-                   for %%f in ( "$(Build.SourcesDirectory)\*" ) do @echo %%f
+                   cd $(Build.SourcesDirectory)
+                   ls -Rla
 
       - job: Installanddeployhelm
         steps:      
