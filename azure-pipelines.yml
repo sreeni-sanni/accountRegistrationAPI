@@ -49,15 +49,17 @@ stages:
             Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
             tags: '$(Build.BuildId)'
             buildContext: '**'
-  - stage: deploy
-    displayName: helm deploy
+  - stage: Deploy
+    displayName: Helm deploy
     jobs:
       - job: PublishPipelineArtifact
         steps:
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(Build.SourcesDirectory)'
-              publishLocation: 'pipeline'
+              
+      - job: Installanddeployhelm
+        steps:      
           - task: HelmInstaller@0
             inputs:
               helmVersion: '2.14.1'
@@ -67,7 +69,8 @@ stages:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceConnection: 'aks'
               command: 'upgrade'
-              chartName: '$(Build.SourcesDirectory)/accountchart'
-              chartPath: '$(Build.SourcesDirectory)'
-              releaseName: 'accountchart'
+              chartType: FilePath
+              chartPath: '$(Build.SourcesDirectory)/accountchart'
               valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
+              releaseName: 'accountchart'
+              overrideValues: 'image.tag=$(version)'
