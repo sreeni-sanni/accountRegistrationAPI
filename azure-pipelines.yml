@@ -74,6 +74,7 @@ stages:
             inputs:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceConnection: 'aks'
+              namespace: 'accountregisterapins'
               command: 'upgrade'
               chartType: FilePath
               chartPath: '$(Build.SourcesDirectory)/accountchart'
