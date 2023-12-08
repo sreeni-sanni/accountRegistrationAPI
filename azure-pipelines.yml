@@ -60,9 +60,9 @@ stages:
 
           - task: CmdLine@2
             inputs:
-            script: |
-               echo 'Build.SourcesDirectory:' 
-                echo '$(Build.SourcesDirectory)'
+             script: |
+                   echo 'Build.SourcesDirectory:' 
+                   echo '$(Build.SourcesDirectory)'
 
       - job: Installanddeployhelm
         steps:      
