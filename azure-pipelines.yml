@@ -62,7 +62,7 @@ stages:
             inputs:
              script: |
                    echo 'Build.SourcesDirectory:' 
-                   echo '$(Build.SourcesDirectory)'
+                   for %%f in ( "$(Build.SourcesDirectory)\*" ) do @echo %%f
 
       - job: Installanddeployhelm
         steps:      
