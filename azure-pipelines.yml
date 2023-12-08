@@ -27,7 +27,8 @@ stages:
             PathtoPublish: '$(Build.SourcesDirectory)/target'
             ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
-  - stage: docker  
+  - stage: Docker  
+    displayName: docker image build and push
     jobs:
       - job: docker
         steps:
@@ -48,3 +49,25 @@ stages:
             Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
             tags: '$(Build.BuildId)'
             buildContext: '**'
+  - stage: deploy
+    displayName: helm deploy
+    jobs:
+      - job: PublishPipelineArtifact
+        steps:
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.SourcesDirectory)'
+              publishLocation: 'pipeline'
+          - task: HelmInstaller@0
+            inputs:
+              helmVersion: '2.14.1'
+              installKubectl: true
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'aks'
+              command: 'upgrade'
+              chartType: 'Name'
+              chartName: '$(Build.SourcesDirectory)/accountChart'
+              releaseName: 'account-chart'
+              valueFile: '$(Build.SourcesDirectory)/accountChart/values.yaml'
