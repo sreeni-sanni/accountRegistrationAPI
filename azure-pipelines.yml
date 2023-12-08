@@ -24,7 +24,7 @@ stages:
       
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(System.SourceDirectory)/target'
+            PathtoPublish: '$(Build.SourcesDirectory)/target'
             ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
   - stage: docker  
