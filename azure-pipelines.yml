@@ -57,7 +57,13 @@ stages:
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(Build.SourcesDirectory)'
-              
+
+          - task: CmdLine@2
+            inputs:
+            script: |
+               echo 'Build.SourcesDirectory:' 
+                echo '$(Build.SourcesDirectory)'
+
       - job: Installanddeployhelm
         steps:      
           - task: HelmInstaller@0
