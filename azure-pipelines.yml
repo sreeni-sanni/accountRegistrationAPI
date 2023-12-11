@@ -41,7 +41,7 @@ stages:
             buildType: 'current'
            # downloadType: 'single'
             downloadPath: '$(Build.ArtifactStagingDirectory)'
-            tags: ['$(version)']
+            tags: '$(version)'
 
         - script: |
                  cp $(Build.ArtifactStagingDirectory)/sreeni-sanni/accountRegistrationAPI/accountRegistrationAPI-0.0.1.jar $(Build.SourcesDirectory)
