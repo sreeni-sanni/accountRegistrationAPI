@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -38,8 +38,8 @@ securityContext: {}
 
 service:
   name: accountchart-service
-  type: ClusterIP
-  port: 8080
+  type: LoadBalancer
+  port: 80
 
 ingress:
   enabled: false
