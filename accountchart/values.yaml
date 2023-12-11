@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: sanniboena/accountregistration
-  pullPolicy: IfNotPresent
+  repository: hub.docker.com/repository/docker/sanniboena/accountregistration
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
