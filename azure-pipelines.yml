@@ -43,12 +43,10 @@ stages:
            
         - task: Docker@2
           inputs:
-            containerRegistry: 'dockerHub'
-            repository: 'sanniboena/accountregistration'
+            containerRegistry: 'acr'
+            repository: 'accountrepo'
             command: 'buildAndPush'
             Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-            tags: '$(Build.BuildId)'
-            buildContext: '**'
   - stage: Deploy
     displayName: Helm deploy
     jobs:
