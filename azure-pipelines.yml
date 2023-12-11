@@ -80,4 +80,3 @@ stages:
               valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
               releaseName: 'account-chart'
               overrideValues: 'image.tag=$(version)'
-              arguments: '--timeout=600s'
