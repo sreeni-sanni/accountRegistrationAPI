@@ -2,6 +2,10 @@
 trigger:
 - main
 
+variables:
+  - name: version
+    value: $(Build.BuildNumber)
+
 pool:
   vmImage: ubuntu-latest
 
@@ -37,6 +41,7 @@ stages:
             buildType: 'current'
            # downloadType: 'single'
             downloadPath: '$(Build.ArtifactStagingDirectory)'
+            tags: ['$(version)']
 
         - script: |
                  cp $(Build.ArtifactStagingDirectory)/sreeni-sanni/accountRegistrationAPI/accountRegistrationAPI-0.0.1.jar $(Build.SourcesDirectory)
@@ -47,6 +52,7 @@ stages:
             repository: 'sanniboena/accountregistration'
             command: 'buildAndPush'
             Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+            tags: $(build.buildid)
   - stage: Deploy
     displayName: Helm deploy
     jobs:
