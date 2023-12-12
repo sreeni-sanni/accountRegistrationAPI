@@ -34,7 +34,7 @@ stages:
   - stage: Docker  
     displayName: Docker Build
     jobs:
-      - job: docker-image-build-and-push
+      - job: BuildAndPush
         steps:
         - task: DownloadBuildArtifacts@1
           inputs:
