@@ -8,8 +8,6 @@ variables:
 
 pool:
   name: dockerAgent
-  demands:
-    - agent.name -equals docker
 
 stages:
   - stage: CI
