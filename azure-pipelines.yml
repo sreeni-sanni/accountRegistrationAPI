@@ -7,7 +7,9 @@ variables:
     value: $(build.buildid)
 
 pool:
-  vmImage: docker
+  name: dockerAgent
+  demands:
+    - agent.name -equals docker
 
 stages:
   - stage: CI
