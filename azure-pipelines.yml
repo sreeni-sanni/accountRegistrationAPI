@@ -10,6 +10,7 @@ pool:
   name: dockerAgent
   demands:
    - agent.name -equals docker
+   - agent.version -equals 3.232.1
 
 stages:
   - stage: CI
