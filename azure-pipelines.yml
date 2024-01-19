@@ -50,6 +50,5 @@ stages:
             containerRegistry: 'acr-accountapi'
             repository: 'accountapi'
             command: 'buildAndPush'
-            Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-            tags: '$(version)'
+            Dockerfile: '**/Dockerfile'
  
