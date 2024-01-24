@@ -45,12 +45,7 @@ stages:
 
         - script: |
                  cp $(Build.ArtifactStagingDirectory)/sreeni-sanni/accountRegistrationAPI/accountRegistrationAPI-0.0.1.jar $(Build.SourcesDirectory)
-
-
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'acr-accountapi'
-            command: 'login'
+                 
         - task: Docker@2
           inputs:
             containerRegistry: 'acr-accountapi'
