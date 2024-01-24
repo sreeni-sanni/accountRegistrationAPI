@@ -48,7 +48,7 @@ stages:
                  
         - task: Docker@2
           inputs:
-            containerRegistry: 'acr-accountapi'
+            containerRegistry: 'azuredocker'
             repository: 'accountapi'
             command: 'buildAndPush'
             Dockerfile: '**/Dockerfile'
