@@ -75,12 +75,23 @@ stages:
             inputs:
               helmVersion: 'latest'
               installKubectl: false
+          - task: HelmDeploy@0
+            inputs:
+             command: 'package'
+             chartPath: '$(Build.SourcesDirectory)/accountchart'
+             chartVersion: $(Build.SourceBranchName)
+             arguments: '--app-version $(Build.SourceBranchName)'
+          - task: CmdLine@2
+            inputs:
+             script: |
+                   cd $(Build.SourcesDirectory)
+                   ls
           - task: AzureCLI@2
             inputs:
               azureSubscription: 'azure-sreeni'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/$(account-chart)-$(Build.SourceBranchName).tgz --name $(accountapi);'
+              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/accountchart $(Build.SourceBranchName).tgz --name $(accountapi);'
                     
               
           
