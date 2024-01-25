@@ -91,7 +91,7 @@ stages:
               azureSubscription: 'azure-sreeni'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/accountchart $(Build.BuildNumber).tgz --name $(accountapi);'
+              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/accountchart $(Build.BuildNumber).tgz --name accountapi'
                     
               
           
