@@ -70,10 +70,20 @@ stages:
 
       - job: HelmInstallUpgrade
         steps:      
+          
           - task: HelmInstaller@0
             inputs:
-              helmVersion: '3.4.2'
-              installKubectl: true
+              helmVersion: 'latest'
+              installKubectl: false
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'azure-sreeni'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/$(account-chart)-$(Build.SourceBranchName).tgz --name $(accountapi);'
+                    
+              
+          
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Kubernetes Service Connection'
