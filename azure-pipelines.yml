@@ -86,6 +86,8 @@ stages:
              script: |
                    cd $(Build.SourcesDirectory)
                    ls
+                   cd $(System.ArtifactsDirectory)/accountchart
+                   ls
           - task: AzureCLI@2
             inputs:
               azureSubscription: 'azure-sreeni'
