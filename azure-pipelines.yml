@@ -68,7 +68,7 @@ stages:
                    cd $(Build.SourcesDirectory)
                    ls
 
-      - job: Helmdeploy
+      - job: Helm install & upgrade
         steps:      
           - task: HelmInstaller@0
             inputs:
