@@ -79,8 +79,8 @@ stages:
             inputs:
              command: 'package'
              chartPath: '$(Build.SourcesDirectory)/accountchart'
-             chartVersion: $(Build.SourceBranchName)
-             arguments: '--app-version $(Build.SourceBranchName)'
+             chartVersion: $(Build.Id)
+             arguments: '--app-version $(Build.Id)'
           - task: CmdLine@2
             inputs:
              script: |
