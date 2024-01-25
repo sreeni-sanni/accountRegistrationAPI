@@ -73,7 +73,7 @@ stages:
           - task: HelmInstaller@0
             inputs:
               helmVersion: '3.4.2'
-              installKubectl: false
+              installKubectl: true
           - task: HelmDeploy@0
             inputs:
               connectionType: 'Kubernetes Service Connection'
@@ -85,3 +85,5 @@ stages:
               releaseName: 'account-chart'
               overrideValues: 'image.tag=$(version)'
               valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
+              waitForExecution: true
+              
