@@ -81,11 +81,11 @@ stages:
              chartPath: '$(Build.SourcesDirectory)/accountchart'
              chartVersion: $(Build.BuildNumber)
              arguments: '--app-version $(Build.BuildNumber)'
-             destination: 
+             destination: '$(Build.ArtifactStagingDirectory)'
           - task: CmdLine@2
             inputs:
              script: |
-                   cd $(System.ArtifactsDirectory)
+                   cd $(Build.ArtifactStagingDirectory)
                    ls
          
           - task: AzureCLI@2
@@ -93,9 +93,8 @@ stages:
               azureSubscription: 'azure-sreeni'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm push $(Build.SourcesDirectory)/accountchart-$(Build.BuildNumber).tgz --name accountapi'
+              inlineScript: 'az acr helm push $(Build.ArtifactStagingDirectory)/accountchart-$(Build.BuildNumber).tgz --name accountapi'
                     
-              
           
           - task: HelmDeploy@0
             inputs:
@@ -104,9 +103,9 @@ stages:
               namespace: 'default'
               command: 'upgrade'
               chartType: 'FilePath'
-              chartPath: '$(Build.SourcesDirectory)/accountchart'
-              releaseName: 'account-chart'
+              chartPath: '$(Build.ArtifactStagingDirectory)/accountchart-$(Build.BuildNumber).tgz'
+              releaseName: 'accountapichart'
               overrideValues: 'image.tag=$(version)'
-              valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
-              waitForExecution: true
+              #valueFile: '$(Build.SourcesDirectory)/accountchart/values.yaml'
+              waitForExecution: false
               
