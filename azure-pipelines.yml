@@ -79,8 +79,8 @@ stages:
             inputs:
              command: 'package'
              chartPath: '$(Build.SourcesDirectory)/accountchart'
-             chartVersion: $(Build.Id)
-             arguments: '--app-version $(Build.Id)'
+             chartVersion: $(Build.BuildNumber)
+             arguments: '--app-version $(Build.BuildNumber)'
           - task: CmdLine@2
             inputs:
              script: |
@@ -91,7 +91,7 @@ stages:
               azureSubscription: 'azure-sreeni'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/accountchart $(Build.Id).tgz --name $(accountapi);'
+              inlineScript: 'az acr helm push $(System.ArtifactsDirectory)/accountchart $(Build.BuildNumber).tgz --name $(accountapi);'
                     
               
           
