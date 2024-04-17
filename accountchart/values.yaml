@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: accountapi.azurecr.io/accountapi
+  repository: accountapiv1.azurecr.io/accountapi
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
