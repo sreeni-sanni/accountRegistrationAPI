@@ -94,7 +94,13 @@ stages:
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: 'az acr helm push $(Build.ArtifactStagingDirectory)/accountchart-$(Build.BuildNumber).tgz --name accountapiV1'
-                    
+
+          -  task: AzureCLI@2
+             inputs:
+              azureSubscription: 'azure-sreeni'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: 'az acr helm show -n accountapiV1 accountchart'      
           
           - task: HelmDeploy@0
             inputs:
