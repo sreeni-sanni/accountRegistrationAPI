@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "accountchart.fullname" . }}
+  name: {{ include "accountChart.fullname" . }}
   labels:
-    {{- include "accountchart.labels" . | nindent 4 }}
+    {{- include "accountChart.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "accountchart.selectorLabels" . | nindent 6 }}
+      {{- include "accountChart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "accountchart.selectorLabels" . | nindent 8 }}
+        {{- include "accountChart.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "accountchart.serviceAccountName" . }}
+      serviceAccountName: {{ include "accountChart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -35,26 +35,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
-            initialDelaySeconds: 180
-            periodSeconds: 10
             httpGet:
-              path: /actuator
-              port: 8080
+              path: /
+              port: http
           readinessProbe:
-            initialDelaySeconds: 180
-            periodSeconds: 10
             httpGet:
-              path: /actuator
-              port: 8080
-          startupProbe:
-            failureThredshold: 30
-            periodSeconds: 10
-            httpGet:
-              path: /actuator
-              port: 8080
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
