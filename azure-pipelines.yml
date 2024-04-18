@@ -13,7 +13,7 @@ pool:
 stages:
   - stage: CI
     jobs:
-      - job: Build
+      - job: Maven
         steps:
         - task: Maven@4
           inputs:
@@ -32,10 +32,8 @@ stages:
             PathtoPublish: '$(Build.SourcesDirectory)/target'
             ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
-  - stage: Docker  
-    displayName: Docker Build
-    jobs:
-      - job: BuildAndPush
+
+      - job: Docker
         steps:
         - task: DownloadBuildArtifacts@1
           inputs:
@@ -54,19 +52,13 @@ stages:
             Dockerfile: '**/Dockerfile'
  
   - stage: CD
-    displayName: Helm Deploy
+    displayName: Dev
     jobs:
       - job: PublishPipelineArtifact
         steps:
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(Build.SourcesDirectory)'
-
-          - task: CmdLine@2
-            inputs:
-             script: |
-                   cd $(Build.SourcesDirectory)
-                   ls
 
       - job: HelmInstallUpgrade
         steps:      
@@ -93,14 +85,7 @@ stages:
               azureSubscription: 'azure-sreeni'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm push $(Build.ArtifactStagingDirectory)/accountchart-$(Build.BuildNumber).tgz --name accountapiV1'
-
-          -  task: AzureCLI@2
-             inputs:
-              azureSubscription: 'azure-sreeni'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: 'az acr helm show -n accountapiV1 accountchart'      
+              inlineScript: 'az acr helm push $(Build.ArtifactStagingDirectory)/accountchart-$(Build.BuildNumber).tgz --name accountapiV1'      
           
           - task: HelmDeploy@0
             inputs:
