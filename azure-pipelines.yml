@@ -32,9 +32,6 @@ stages:
             PathtoPublish: '$(Build.SourcesDirectory)/target'
             ArtifactName: '$(Build.Repository.Name)'
             publishLocation: 'Container'
-
-      - job: Docker
-        steps:
         - task: DownloadBuildArtifacts@1
           inputs:
             buildType: 'current'
