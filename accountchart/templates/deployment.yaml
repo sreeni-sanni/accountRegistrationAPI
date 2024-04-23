@@ -37,27 +37,27 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
+         livenessProbe:
             initialDelaySeconds: 180
             periodSeconds: 10
             httpGet:
               path: /actuator
               port: 8080
-              scheme: http
+              scheme: HTTP
           readinessProbe:
             initialDelaySeconds: 180
             periodSeconds: 10
             httpGet:
               path: /actuator
               port: 8080
-              scheme: http
+              scheme: HTTP
           startupProbe:
-		    failureThreshold: 20
-		    initialDelaySeconds: 180
-		    httpGet:
-		      path: /actuator
-		      port: 8080
-		      scheme: http    
+            failureThredshold: 30
+            periodSeconds: 10
+            httpGet:
+              path: /actuator
+              port: 8080
+              scheme: HTTP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
