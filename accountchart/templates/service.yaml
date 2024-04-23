@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "accountChart.fullname" . }}
-  labels:
-    {{- include "accountChart.labels" . | nindent 4 }}
+  name: accountapi
+
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +11,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "accountChart.selectorLabels" . | nindent 4 }}
+    app: accountapi
