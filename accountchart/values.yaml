@@ -37,17 +37,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  enabled: true
   type: LoadBalancer
-  ports:
-      http: 80
-      https: 443
-  enablePorts:
-      http: true
-      https: true
-  targetPorts:
-      http: http
-      https: https
+  port: 80
 
 ingress:
   enabled: false
