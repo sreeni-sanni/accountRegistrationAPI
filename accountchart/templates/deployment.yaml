@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             initialDelaySeconds: 180
@@ -52,7 +52,7 @@ spec:
               port: 8080
               scheme: HTTP
           startupProbe:
-            failureThredshold: 30
+            initialDelaySeconds: 180
             periodSeconds: 10
             httpGet:
               path: /actuator
