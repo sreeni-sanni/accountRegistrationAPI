@@ -41,14 +41,23 @@ spec:
             initialDelaySeconds: 180
             periodSeconds: 10
             httpGet:
-              path: /
-              port: http
+              path: /actuator
+              port: 8080
+              scheme: http
           readinessProbe:
             initialDelaySeconds: 180
             periodSeconds: 10
             httpGet:
-              path: /
-              port: http
+              path: /actuator
+              port: 8080
+              scheme: http
+          startupProbe:
+		    failureThreshold: 20
+		    initialDelaySeconds: 180
+		    httpGet:
+		      path: /actuator
+		      port: 8080
+		      scheme: http    
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
