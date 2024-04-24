@@ -53,14 +53,15 @@ stages:
             Dockerfile: '**/Dockerfile'
  
   - stage: CD
+    condition: eq(dependencies.CI.result,'Succeeded')
     jobs:
-      - job: PublishPipelineArtifact
+      - job: DownloadArtifact
         steps:
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: '$(Build.SourcesDirectory)'
 
-      - job: HelmInstallUpgrade
+      - job: HelmDeploy
         steps:      
           
           - task: HelmInstaller@0
