@@ -1,4 +1,10 @@
-
+parameters:
+  - name: dependsOn
+    type: object
+    default: []
+ # - name: condition
+  #  type: string
+    
 trigger:
 - main
 
@@ -12,6 +18,8 @@ pool:
 
 stages:
   - stage: CI
+    dependsOn: ${{parameters.dependsOn}}
+    #condition: ${{parameters.condition}}
     jobs:
       - job: Maven
         steps:
@@ -34,7 +42,8 @@ stages:
             publishLocation: 'Container'
 
       - job: Docker
-        condition: eq(dependencies.Maven.result,'Succeeded')
+        dependsOn : Maven
+        #condition: eq(dependencies.Maven.result,'Succeeded')
         steps:
         - task: DownloadBuildArtifacts@1
           inputs:
@@ -53,7 +62,8 @@ stages:
             Dockerfile: '**/Dockerfile'
  
   - stage: CD
-    condition: eq(dependencies.CI.result,'Succeeded')
+    dependsOn : CI
+    #condition: eq(dependencies.CI.result,'Succeeded')
     jobs:
       - job: DownloadArtifact
         steps:
@@ -62,6 +72,7 @@ stages:
               targetPath: '$(Build.SourcesDirectory)'
 
       - job: HelmDeploy
+        dependsOn: DownloadArtifact
         steps:      
           
           - task: HelmInstaller@0
