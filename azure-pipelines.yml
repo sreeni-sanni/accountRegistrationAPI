@@ -34,6 +34,7 @@ stages:
             publishLocation: 'Container'
 
       - job: Docker
+        condition: eq(dependencies.Maven.result,'Succeeded')
         steps:
         - task: DownloadBuildArtifacts@1
           inputs:
