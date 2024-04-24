@@ -18,7 +18,7 @@ pool:
 
 stages:
   - stage: CI
-    dependsOn: ${{parameters.dependsOn}}
+    #dependsOn: ${{parameters.dependsOn}}
     #condition: ${{parameters.condition}}
     jobs:
       - job: Maven
