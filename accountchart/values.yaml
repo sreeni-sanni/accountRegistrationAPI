@@ -41,16 +41,18 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
+  enabled: true
+  className: "nginx"
+  type: LoadBalancer
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: prodinfo.local
+    - host: accountapi.southindia.cloudapp.azure.com
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
